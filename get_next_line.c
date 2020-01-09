@@ -6,7 +6,7 @@
 /*   By: raubert <raubert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:21:18 by raubert           #+#    #+#             */
-/*   Updated: 2019/12/04 19:38:47 by raubert          ###   ########.fr       */
+/*   Updated: 2020/01/09 15:19:21 by raubert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,10 @@ int				get_next_line(int fd, char **line)
 	while ((read_ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[read_ret] = '\0';
-		ft_strjoin(&contain, buff);
+		if (!(ft_strjoin(&contain, buff)))
+			return (ft_free(&contain, 0));
 		if (ft_is_bn(contain) != (-1))
-		{
-			free(buff);
-			return (ft_modif(line, &contain));
-		}
+			break ;
 	}
 	free(buff);
 	if (read_ret < 0)
